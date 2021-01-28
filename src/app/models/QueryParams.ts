@@ -1,5 +1,5 @@
 export interface QueryParams {
   search?: string;
-  offset?: string;
-  limit?: string;
+  offset?: number;
+  limit?: number;
 }

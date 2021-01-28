@@ -18,8 +18,10 @@ export class PokemonsService {
 
   public getPokemons(params: QueryParams): Observable<ResponseAPI> {
     if (params.search !== undefined) {
+      console.log('CALL : {search : ' + params.search + '}');
       return this.http.get<ResponseAPI>(this.apiURI + '?search=' + params.search);
     } else if (params.offset !== undefined && params.limit !== undefined) {
+      console.log('CALL : {offset : ' + params.offset + ', limit : ' + params.limit + '}');
       return this.http.get<ResponseAPI>(this.apiURI + '?offset=' + params.offset + '&limit=' + params.limit);
     }
     return this.http.get<ResponseAPI>(this.apiURI);

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {PokemonsService} from '../pokemons.service';
 import {Pokemon} from '../../models/Pokemon';
@@ -12,6 +12,7 @@ import {Observable} from 'rxjs';
 export class PokemonDetailComponent implements OnInit {
   pokemon$?: Observable<Pokemon>;
 
+
   constructor(private route: ActivatedRoute, private pokemonsService: PokemonsService) {
   }
 
@@ -21,5 +22,4 @@ export class PokemonDetailComponent implements OnInit {
       this.pokemon$ = this.pokemonsService.getSpecialPokemon(idPokemon);
     }
   }
-
 }

@@ -2,19 +2,27 @@
 <mat-card class="pokemon-card" *ngIf="(pokemon$|async) as pok">
   <mat-grid-list cols="2" rowHeight="200px">
     <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <img src="assets/img/official-artwork/{{pok.id}}.png"
-           alt="{{pok.name}}" height="150" width="150">
-      <span style="display: block"> {{pok.id | id:'No.'}}</span>
+      <div style="text-align: center">
+        <img src="assets/img/official-artwork/{{pok.id}}.png"
+             alt="{{pok.name}}" height="150" width="150">
+        <div> No. {{pok.id | number:'3.0-0'}}</div>
+      </div>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="1" [rowspan]="1">
       <mat-card-header>
         <mat-list role="list">
           <mat-list-item role="listitem">
-            <mat-card-title>{{pok.name}}</mat-card-title>
+            <mat-card-title>{{pok.name}}
+              <mat-icon style="cursor: pointer" (click)="audioOption.play()" color="secondary" mat-list-icon>play_circle
+              </mat-icon>
+            </mat-card-title>
+            <audio #audioOption autoplay>
+              <source src="assets/audio/{{pok.id}}.mp3" type="audio/mp3">
+            </audio>
           </mat-list-item>
           <mat-list-item role="listitem">
             <mat-chip-list>
-              <mat-chip *ngFor="let type of pok.types"> {{type}} </mat-chip>
+              <mat-chip *ngFor="let type of pok.types" selected [color]=" type | color"> {{type}} </mat-chip>
             </mat-chip-list>
           </mat-list-item>
           <mat-list-item role="listitem">
@@ -32,6 +40,4 @@
       </mat-card-content>
     </mat-grid-tile>
   </mat-grid-list>
-
-
 </mat-card>

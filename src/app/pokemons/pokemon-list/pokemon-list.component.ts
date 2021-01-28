@@ -11,14 +11,27 @@ import {map} from 'rxjs/operators';
 })
 export class PokemonListComponent implements OnInit {
 
-  pokemons: Observable<Pokemon[]> = new Observable<Pokemon[]>();
+  pokemons: Pokemon[] = [];
+  limit = 20;
 
   constructor(private pokemonsService: PokemonsService) {
   }
 
   ngOnInit(): void {
-    this.pokemons = this.pokemonsService.getPokemons({}).pipe(map((v) => v.data as Pokemon[]));
-    this.pokemons.subscribe((res) => console.log(res));
+    this.pokemonsService.getPokemons({offset: this.pokemons.length, limit: this.limit}).subscribe((res) => {
+        this.pokemons = res.data;
+        this.limit = res.limit;
+      }
+    );
   }
 
+  onScroll(): void {
+    this.pokemonsService.getPokemons({offset: this.pokemons.length, limit: this.limit}).subscribe((res) => {
+      console.log(res);
+      this.pokemons = [...this.pokemons.concat(res.data)];
+      this.limit = res.limit;
+      console.log('new pokemons : ');
+      console.log(this.pokemons);
+    });
+  }
 }

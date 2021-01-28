@@ -1,8 +1,11 @@
-<mat-list role="list">
-  <mat-list-item role="listitem" *ngFor="let pokemon of pokemons | async" [routerLink]="['detail',pokemon.id]" style="cursor: pointer">
+<mat-list *ngIf="pokemons" class="search-results" role="list" infiniteScroll
+          (scrolled)="onScroll()"
+          [scrollWindow]="false">
+  <mat-list-item role="listitem" *ngFor="let pokemon of pokemons" [routerLink]="['detail',pokemon.id]"
+                 style="cursor: pointer">
     <img matListAvatar src="assets/img/sprites/{{pokemon.id}}.png" alt="{{pokemon.name}}">
     <h3 matLine>
-      {{pokemon.id}}.
+      {{pokemon.id | number:'3.0-0'}}.
       <span> {{pokemon.name}} </span>
     </h3>
   </mat-list-item>
