@@ -1,0 +1,37 @@
+<button [routerLink]="['/pokemons']" mat-button>Back to POKEMONS</button>
+<mat-card class="pokemon-card" *ngIf="(pokemon$|async) as pok">
+  <mat-grid-list cols="2" rowHeight="200px">
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <img src="assets/img/official-artwork/{{pok.id}}.png"
+           alt="{{pok.name}}" height="150" width="150">
+      <span style="display: block"> {{pok.id | id:'No.'}}</span>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem">
+            <mat-card-title>{{pok.name}}</mat-card-title>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <mat-chip-list>
+              <mat-chip *ngFor="let type of pok.types"> {{type}} </mat-chip>
+            </mat-chip-list>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            Taille : {{pok.height | number:'1.1-1'}} m
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            Poids : {{pok.weight | number:'1.1-1'}} kg
+          </mat-list-item>
+        </mat-list>
+      </mat-card-header>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <mat-card-content>
+        {{pok.description}}
+      </mat-card-content>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+
+</mat-card>

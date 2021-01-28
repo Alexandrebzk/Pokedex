@@ -1,0 +1,9 @@
+<mat-list role="list">
+  <mat-list-item role="listitem" *ngFor="let pokemon of pokemons | async" [routerLink]="['detail',pokemon.id]" style="cursor: pointer">
+    <img matListAvatar src="assets/img/sprites/{{pokemon.id}}.png" alt="{{pokemon.name}}">
+    <h3 matLine>
+      {{pokemon.id}}.
+      <span> {{pokemon.name}} </span>
+    </h3>
+  </mat-list-item>
+</mat-list>
