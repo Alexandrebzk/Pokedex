@@ -1,0 +1,10 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer opened class="example-sidenav" mode="side">
+    <app-pokemon-list (selectedPokemon)="onSelectedPokemon($event)" ></app-pokemon-list>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <app-pokemon-detail [selectedPokemonId]="selectedId"></app-pokemon-detail>
+  </div>
+
+</mat-drawer-container>

@@ -12,10 +12,12 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatButtonModule} from '@angular/material/button';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {ColorPipe} from './color.pipe';
+import { PokedexComponent } from './pokedex/pokedex.component';
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 
 @NgModule({
-  declarations: [PokemonListComponent, PokemonDetailComponent, ColorPipe],
+  declarations: [PokemonListComponent, PokemonDetailComponent, ColorPipe, PokedexComponent],
   imports: [
     CommonModule,
     MatListModule,
@@ -26,7 +28,8 @@ import {ColorPipe} from './color.pipe';
     MatChipsModule,
     DragDropModule,
     MatButtonModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    MatSidenavModule
   ],
   exports: [PokemonListComponent]
 })

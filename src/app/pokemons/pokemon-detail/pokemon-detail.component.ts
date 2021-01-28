@@ -1,4 +1,14 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {PokemonsService} from '../pokemons.service';
 import {Pokemon} from '../../models/Pokemon';
@@ -9,8 +19,10 @@ import {Observable} from 'rxjs';
   templateUrl: './pokemon-detail.component.html',
   styleUrls: ['./pokemon-detail.component.scss']
 })
-export class PokemonDetailComponent implements OnInit {
+export class PokemonDetailComponent implements OnInit, OnChanges {
   pokemon$?: Observable<Pokemon>;
+  @Input()
+  selectedPokemonId!: number;
 
 
   constructor(private route: ActivatedRoute, private pokemonsService: PokemonsService) {
@@ -20,6 +32,19 @@ export class PokemonDetailComponent implements OnInit {
     const idPokemon = this.route.snapshot.paramMap.get('id');
     if (idPokemon !== null) {
       this.pokemon$ = this.pokemonsService.getSpecialPokemon(idPokemon);
+    }
+  }
+
+  public setSelectedPokemon(pok: any): void {
+    if (pok.id !== null) {
+      this.pokemon$ = this.pokemonsService.getSpecialPokemon(pok.id);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.selectedPokemonId.previousValue !== changes.selectedPokemonId.currentValue
+      && changes.selectedPokemonId.currentValue !== undefined) {
+      this.pokemon$ = this.pokemonsService.getSpecialPokemon(changes.selectedPokemonId.currentValue);
     }
   }
 }
