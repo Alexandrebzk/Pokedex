@@ -13,7 +13,11 @@ import {MatButtonModule} from '@angular/material/button';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {ColorPipe} from './color.pipe';
 import { PokedexComponent } from './pokedex/pokedex.component';
-import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -29,7 +33,12 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     DragDropModule,
     MatButtonModule,
     InfiniteScrollModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule
   ],
   exports: [PokemonListComponent]
 })

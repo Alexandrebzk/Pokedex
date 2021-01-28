@@ -1,11 +1,11 @@
 <!--<button [routerLink]="['/pokemons']" mat-button>Back to POKEMONS</button>-->
 <mat-card class="pokemon-card" *ngIf="(pokemon$|async) as pok">
-  <mat-grid-list cols="2" rowHeight="200px">
+  <mat-grid-list cols="2" rowHeight="300px">
     <mat-grid-tile [colspan]="1" [rowspan]="1">
       <div style="text-align: center">
-        <img src="assets/img/official-artwork/{{pok.id}}.png"
-             alt="{{pok.name}}" height="150" width="150">
-        <div> No. {{pok.id | number:'3.0-0'}}</div>
+        <img mat-card-xl-image src="assets/img/official-artwork/{{pok.id}}.png"
+             alt="{{pok.name}}">
+        <div> No. {{pok.id | number:'3.0'}}</div>
       </div>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="1" [rowspan]="1">
@@ -13,7 +13,7 @@
         <mat-list role="list">
           <mat-list-item role="listitem">
             <mat-card-title>{{pok.name}}
-              <mat-icon style="cursor: pointer" (click)="audioOption.play()" color="secondary" mat-list-icon>play_circle
+              <mat-icon style="cursor: pointer; vertical-align: center" (click)="audioOption.play()" color="secondary" mat-list-icon>play_circle
               </mat-icon>
             </mat-card-title>
             <audio #audioOption autoplay>
