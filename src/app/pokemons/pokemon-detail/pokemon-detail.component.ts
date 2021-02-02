@@ -35,12 +35,6 @@ export class PokemonDetailComponent implements OnInit, OnChanges {
     }
   }
 
-  public setSelectedPokemon(pok: any): void {
-    if (pok.id !== null) {
-      this.pokemon$ = this.pokemonsService.getSpecialPokemon(pok.id);
-    }
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedPokemonId.previousValue !== changes.selectedPokemonId.currentValue
       && changes.selectedPokemonId.currentValue !== undefined) {

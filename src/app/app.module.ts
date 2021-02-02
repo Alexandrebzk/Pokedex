@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {PokemonsModule} from './pokemons/pokemons.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
+import {LoginModule} from './login/login.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     PokemonsModule,
+    LoginModule,
     BrowserAnimationsModule,
     HttpClientModule
   ],

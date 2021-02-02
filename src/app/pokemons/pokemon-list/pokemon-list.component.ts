@@ -1,10 +1,8 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import {PokemonsService} from '../pokemons.service';
-import {Observable} from 'rxjs';
 import {Pokemon} from '../../models/Pokemon';
 import {fromEvent} from 'rxjs';
 import {debounceTime, map} from 'rxjs/operators';
-import {FromEventTarget} from 'rxjs/internal/observable/fromEvent';
 
 @Component({
   selector: 'app-pokemon-list',
