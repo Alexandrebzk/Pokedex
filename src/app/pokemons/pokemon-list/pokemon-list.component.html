@@ -1,7 +1,7 @@
 <form class="example-form">
   <mat-form-field class="example-full-width">
     <mat-label>Search for Pokemons</mat-label>
-    <input #search matInput placeholder="Ex. Pizza" [ngModel]="searchKey" (ngModelChange)="searchFor($event)" [ngModelOptions]="{standalone: true}">
+    <input #search matInput placeholder="Salamèche" [ngModel]="searchKey" (ngModelChange)="searchFor($event)" [ngModelOptions]="{standalone: true}">
   </mat-form-field>
 </form>
 <mat-list *ngIf="pokemons" class="search-results" role="list" infiniteScroll

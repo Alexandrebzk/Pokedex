@@ -25,6 +25,9 @@ export class PokedexComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // setTimeout(() => this.drawer.toggle(), 300);
+    /*
+    Just for styling effect
+    * */
+    setTimeout(() => this.drawer.toggle(), 300);
   }
 }

@@ -31,6 +31,9 @@ export class PokemonListComponent implements AfterViewInit {
         this.limit = res.limit;
       }
     );
+    this.pokemonsService.getPokemons({offset: this.pokemons.length, limit: this.limit}).pipe(map((v) => {
+      return v.data as Pokemon[];
+    }));
     fromEvent(this.searchBox.nativeElement, 'keyup').pipe(
       map((i: any) => i.currentTarget.value),
       debounceTime(500)
@@ -40,7 +43,8 @@ export class PokemonListComponent implements AfterViewInit {
           this.pokemons = res.data;
         });
       } else {
-        this.pokemonsService.getPokemons({offset: this.pokemons.length, limit: this.limit}).subscribe((res) => {
+        // offset = 0 to reload basic pokemons tab.
+        this.pokemonsService.getPokemons({offset: 0, limit: this.limit}).subscribe((res) => {
             this.pokemons = res.data;
             this.limit = res.limit;
           }
