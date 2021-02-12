@@ -1,7 +1,8 @@
-<form class="example-form">
+<form *ngIf="searchOption" style="position: sticky" class="example-form">
   <mat-form-field class="example-full-width">
     <mat-label>Search for Pokemons</mat-label>
-    <input #search matInput placeholder="Salamèche" [ngModel]="searchKey" (ngModelChange)="searchFor($event)" [ngModelOptions]="{standalone: true}">
+    <input #search matInput placeholder="Salamèche" [ngModel]="searchKey" (ngModelChange)="searchFor($event)"
+           [ngModelOptions]="{standalone: true}">
   </mat-form-field>
 </form>
 <mat-list *ngIf="pokemons" class="search-results" role="list" infiniteScroll
@@ -13,6 +14,10 @@
     <h3 matLine>
       {{pokemon.id | number:'3.0-0'}}.
       <span> {{pokemon.name}} </span>
+      <button *ngIf="pokemonsOption" mat-mini-fab color="warn" aria-label="Remove Pokemon"
+              (click)="removePokemon(pokemon)">
+        <mat-icon>remove</mat-icon>
+      </button>
     </h3>
   </mat-list-item>
 </mat-list>

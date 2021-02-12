@@ -7,7 +7,7 @@ import {ThemePalette} from '@angular/material/core';
 export class ColorPipe implements PipeTransform {
   // 'primary' | 'accent' | 'warn' | undefined;
   typesColors = [
-    {types: ['Eau', 'Plante', 'Insecte', 'Vol'], color: 'accent'},
+    {types: ['Eau', 'Plante', 'Insecte', 'Vol', 'Glace'], color: 'accent'},
     {types: ['Feu'], color: 'warn'},
     {types: ['Poison'], color: 'primary'},
     {types: ['Normal'], color: 'secondary'},

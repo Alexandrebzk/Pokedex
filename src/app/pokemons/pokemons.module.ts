@@ -18,6 +18,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -38,9 +39,10 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     FormsModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatTooltipModule
   ],
-  exports: [PokemonListComponent]
+    exports: [PokemonListComponent, ColorPipe, PokemonDetailComponent]
 })
 export class PokemonsModule {
 }

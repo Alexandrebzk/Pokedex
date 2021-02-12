@@ -1,11 +1,16 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Pokemon} from '../../models/Pokemon';
 import {PokemonDetailComponent} from '../pokemon-detail/pokemon-detail.component';
+import {AuthService} from '../../login/auth.service';
+import {TeamService} from '../../team/team.service';
+import {environment} from '../../../environments/environment';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-pokedex',
   templateUrl: './pokedex.component.html',
-  styleUrls: ['./pokedex.component.scss']
+  styleUrls: ['./pokedex.component.scss'],
+  providers: [MatSnackBar]
 })
 export class PokedexComponent implements OnInit, AfterViewInit {
   @ViewChild('drawer')
@@ -14,7 +19,12 @@ export class PokedexComponent implements OnInit, AfterViewInit {
   private pokemonDetailComponent!: PokemonDetailComponent;
   selectedId!: number;
 
-  constructor() {
+  // tslint:disable-next-line:variable-name
+  constructor(private authService: AuthService, private teamService: TeamService, private _snackBar: MatSnackBar) {
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
   }
 
   ngOnInit(): void {
@@ -29,5 +39,28 @@ export class PokedexComponent implements OnInit, AfterViewInit {
     Just for styling effect
     * */
     setTimeout(() => this.drawer.toggle(), 300);
+  }
+
+  randomPokemon(): void {
+    this.selectedId = Math.floor(Math.random() * 150) + 1;
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
+
+  addPokToTeam($event: Pokemon): void {
+    if (this.teamService.team.length < environment.maxNumberOfPokemons) {
+      this.teamService.team.push($event.id);
+      this.teamService.setTrainerTeam(this.authService.accessToken).subscribe(() => this.openSnackBar('Pokémon ' + $event.name + ' ajouté', 'Ok'));
+    } else {
+      this.openSnackBar('Votre équipe est pleine !', 'Ok');
+    }
+  }
+
+  openSnackBar(message: string, action: string): void {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 }

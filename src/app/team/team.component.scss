@@ -1,6 +1,4 @@
-.pokemon-card {
-  //height: 80vh;
-}
+
 
 @keyframes shake {
   0% {
@@ -39,8 +37,14 @@
 }
 
 ::ng-deep .shake {
+  cursor: pointer;
   -webkit-animation-name: shake;
   -webkit-animation-duration: 1s;
   -webkit-transform-origin: 50% 50%;
   -webkit-animation-timing-function: linear;
+}
+
+app-pokemon-detail {
+  display: block;
+  margin-bottom: 15px;
 }

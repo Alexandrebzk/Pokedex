@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {QueryParams} from '../models/QueryParams';
 import {ResponseAPI} from '../models/responseAPI';
 import {Pokemon} from '../models/Pokemon';
@@ -17,14 +17,11 @@ export class PokemonsService {
   }
 
   public getPokemons(params: QueryParams): Observable<ResponseAPI> {
-    if (params.search !== undefined) {
-      console.log('CALL : {search : ' + params.search + '}');
-      return this.http.get<ResponseAPI>(this.apiURI + '?search=' + params.search);
-    } else if (params.offset !== undefined && params.limit !== undefined) {
-      console.log('CALL : {offset : ' + params.offset + ', limit : ' + params.limit + '}');
-      return this.http.get<ResponseAPI>(this.apiURI + '?offset=' + params.offset + '&limit=' + params.limit);
-    }
-    return this.http.get<ResponseAPI>(this.apiURI);
+    let httpParams = new HttpParams();
+    Object.entries(params).filter(([k, v]) => v !== undefined).forEach(([key, value]) => {
+      httpParams = httpParams.set(key, value);
+    });
+    return this.http.get<ResponseAPI>(this.apiURI, {params: httpParams});
   }
 
   public getSpecialPokemon(id: string): Observable<Pokemon> {

@@ -5,13 +5,15 @@ import {PokemonDetailComponent} from './pokemons/pokemon-detail/pokemon-detail.c
 import {PokedexComponent} from './pokemons/pokedex/pokedex.component';
 import {LoginComponent} from './login/login.component';
 import {AuthenticationGuard} from './authentication.guard';
+import {TeamComponent} from './team/team.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'pokedex'},
-  {path: 'pokedex', pathMatch: 'full', component: PokedexComponent, canActivate: [AuthenticationGuard]},
+  {path: 'pokedex', pathMatch: 'full', component: PokedexComponent},
   {path: 'login', pathMatch: 'full', component: LoginComponent},
-  {path: 'pokemons', pathMatch: 'full', component: PokemonListComponent, canActivate: [AuthenticationGuard]},
-  {path: 'pokemons/detail/:id', pathMatch: 'full', component: PokemonDetailComponent, canActivate: [AuthenticationGuard]}
+  {path: 'team', pathMatch: 'full', component: TeamComponent, canActivate: [AuthenticationGuard]},
+  {path: 'pokemons', pathMatch: 'full', component: PokemonListComponent},
+  {path: 'pokemons/detail/:id', pathMatch: 'full', component: PokemonDetailComponent}
 ];
 
 @NgModule({

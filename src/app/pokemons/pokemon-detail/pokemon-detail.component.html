@@ -1,19 +1,30 @@
 <!--<button [routerLink]="['/pokemons']" mat-button>Back to POKEMONS</button>-->
 <mat-card class="pokemon-card" *ngIf="(pokemon$|async) as pok">
-  <mat-grid-list cols="2" rowHeight="300px">
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
+  <mat-grid-list cols="{{cols}}" rowHeight="{{rowHeight}}">
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
       <div style="text-align: center">
-        <img mat-card-xl-image src="assets/img/official-artwork/{{pok.id}}.png"
-             alt="{{pok.name}}">
+        <img *ngIf="!showDescription; else otherImg" class="shake"
+             mat-card-lg-image src="assets/img/official-artwork/{{pok.id}}.png"
+             alt="{{pok.name}}"
+             matTooltip="{{pok.description}}"
+             [matTooltipPosition]="'after'">
+        <ng-template #otherImg>
+          <img class="shake"
+               mat-card-lg-image src="assets/img/official-artwork/{{pok.id}}.png"
+               alt="{{pok.name}}"
+               matTooltip="{{pok.description}}"
+               [matTooltipPosition]="'after'">
+        </ng-template>
         <div> No. {{pok.id | number:'3.0'}}</div>
       </div>
     </mat-grid-tile>
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
       <mat-card-header>
         <mat-list role="list">
           <mat-list-item role="listitem">
             <mat-card-title>{{pok.name}}
-              <mat-icon style="cursor: pointer; vertical-align: center" (click)="audioOption.play()" color="secondary" mat-list-icon>play_circle
+              <mat-icon style="cursor: pointer; vertical-align: center" (click)="audioOption.play()" color="secondary"
+                        mat-list-icon>play_circle
               </mat-icon>
             </mat-card-title>
             <audio #audioOption autoplay>
@@ -34,10 +45,16 @@
         </mat-list>
       </mat-card-header>
     </mat-grid-tile>
-    <mat-grid-tile [colspan]="2" [rowspan]="1">
-      <mat-card-content>
+    <mat-grid-tile *ngIf="showDescription" [colspan]="cols" [rowspan]="1">
+      <div style="text-align: center">
         {{pok.description}}
-      </mat-card-content>
+      </div>
     </mat-grid-tile>
+    <button *ngIf="isRemovable" mat-mini-fab color="warn" aria-label="Remove Pokemon" (click)="emitDelete(pok)">
+      <mat-icon>remove</mat-icon>
+    </button>
+    <button *ngIf="isAddable && isLoggedIn()" mat-mini-fab color="accent" aria-label="Remove Pokemon" (click)="emitAdd(pok)">
+      <mat-icon>add</mat-icon>
+    </button>
   </mat-grid-list>
 </mat-card>
