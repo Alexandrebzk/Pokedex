@@ -1,6 +1,7 @@
 <div class="example-container">
   <button (click)="randomPokemon()" mat-button>RANDOM POKEMON</button>
   <ng-container *ngIf="isLoggedIn(); else notConnected">
+  <button (click)="randomTeam()" mat-button>RANDOM TEAM</button>
     <button [routerLink]="['/team']" mat-button>MA TEAM</button>
     <button (click)="logout()" [routerLink]="['/pokedex']" mat-button>DECONNEXION</button>
   </ng-container>

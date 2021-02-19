@@ -15,11 +15,11 @@ export class PokemonDetailComponent implements OnInit, OnChanges {
   @Input() selectedPokemonId?: number;
   @Input() cols!: number;
   @Input() rowHeight!: string;
-  @Output() onDelete: EventEmitter<Pokemon> = new EventEmitter<Pokemon>();
-  @Output() onAdd: EventEmitter<Pokemon> = new EventEmitter<Pokemon>();
   @Input() isRemovable = false;
   @Input() isAddable = false;
   @Input() showDescription = false;
+  @Output() onDelete: EventEmitter<Pokemon> = new EventEmitter<Pokemon>();
+  @Output() onAdd: EventEmitter<Pokemon> = new EventEmitter<Pokemon>();
 
 
   constructor(private route: ActivatedRoute, private pokemonsService: PokemonsService, private authService: AuthService) {

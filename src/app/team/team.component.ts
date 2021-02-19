@@ -3,7 +3,8 @@ import {AuthService} from '../login/auth.service';
 import {TeamService} from './team.service';
 import {Pokemon} from '../models/Pokemon';
 import {Observable} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {environment} from "../../environments/environment";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-team',
@@ -17,7 +18,7 @@ export class TeamComponent implements OnInit {
   team!: Observable<Pokemon[]>;
   pokemonsToDelete: Pokemon[] = [];
 
-  constructor(private authService: AuthService, private teamService: TeamService) {
+  constructor(private authService: AuthService, private teamService: TeamService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -39,7 +40,9 @@ export class TeamComponent implements OnInit {
     if (this.pokemonsToDelete.length === 0) {
       this.drawer.toggle();
     }
-    this.pokemonsToDelete.push(pok as Pokemon);
+    if (!this.pokemonsToDelete.find(p => p === pok)) {
+      this.pokemonsToDelete.push(pok as Pokemon);
+    }
   }
 
   checkToggle(): void {
@@ -49,7 +52,6 @@ export class TeamComponent implements OnInit {
   }
 
   isTeamEmpty(): boolean {
-    console.log(this.teamService.team);
     return this.teamService.team.length > 0;
   }
 }

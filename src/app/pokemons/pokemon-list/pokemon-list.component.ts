@@ -87,11 +87,9 @@ export class PokemonListComponent implements AfterViewInit, OnChanges {
   }
 
   searchFor($event: any): void {
-    console.log($event);
   }
 
   removePokemon(pok: Pokemon): void {
-    console.log(pok);
     this.pokemons = this.pokemons.filter((poke) => poke.id !== pok.id);
     this.pokemonsOptionChange.emit(this.pokemons);
   }

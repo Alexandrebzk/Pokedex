@@ -5,6 +5,7 @@ import {AuthService} from '../../login/auth.service';
 import {TeamService} from '../../team/team.service';
 import {environment} from '../../../environments/environment';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-pokedex',
@@ -20,7 +21,7 @@ export class PokedexComponent implements OnInit, AfterViewInit {
   selectedId!: number;
 
   // tslint:disable-next-line:variable-name
-  constructor(private authService: AuthService, private teamService: TeamService, private _snackBar: MatSnackBar) {
+  constructor(private authService: AuthService, private teamService: TeamService, private _snackBar: MatSnackBar, private router: Router) {
   }
 
   isLoggedIn(): boolean {
@@ -61,6 +62,17 @@ export class PokedexComponent implements OnInit, AfterViewInit {
   openSnackBar(message: string, action: string): void {
     this._snackBar.open(message, action, {
       duration: 2000,
+    });
+  }
+
+  randomTeam(): void {
+    this.teamService.team = [];
+    this.teamService.setTrainerTeam(this.authService.accessToken).subscribe(() => {
+      const length = this.teamService.team.length;
+      for (let i = 0; i < environment.maxNumberOfPokemons - length; i++) {
+        this.teamService.team.push(Math.floor(Math.random() * 150) + 1);
+      }
+      this.teamService.setTrainerTeam(this.authService.accessToken).subscribe(() => this.router.navigate(['team']));
     });
   }
 }
