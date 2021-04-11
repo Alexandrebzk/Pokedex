@@ -17,7 +17,7 @@ export class AuthService {
   // tslint:disable-next-line:variable-name
   private _expiresIn?: number;
 
-  constructor(private http: HttpClient, private teamService: TeamService) {
+  constructor(private http: HttpClient) {
   }
 
   get token(): string | undefined {
@@ -33,9 +33,6 @@ export class AuthService {
       this._token = res.access_token;
       this._refreshToken = res.refresh_token;
       this._expiresIn = Number(res.expires_in);
-      this.teamService.getTrainerTeam().subscribe(data => {
-        this.teamService.team = data;
-      });
     }));
   }
 

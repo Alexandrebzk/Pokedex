@@ -12,37 +12,39 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatButtonModule} from '@angular/material/button';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {ColorPipe} from './color.pipe';
-import { PokedexComponent } from './pokedex/pokedex.component';
+import {PokedexComponent} from './pokedex/pokedex.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
   declarations: [PokemonListComponent, PokemonDetailComponent, ColorPipe, PokedexComponent],
   imports: [
+    // Core modules
     CommonModule,
-    MatListModule,
-    MatIconModule,
-    MatCardModule,
-    RouterModule,
-    MatGridListModule,
-    MatChipsModule,
-    DragDropModule,
-    MatButtonModule,
-    InfiniteScrollModule,
-    MatSidenavModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatInputModule,
     ReactiveFormsModule,
+    RouterModule,
+    FormsModule,
+    // Application modules
+    DragDropModule,
+    InfiniteScrollModule,
     MatAutocompleteModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatChipsModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatSidenavModule,
     MatTooltipModule
   ],
-    exports: [PokemonListComponent, ColorPipe, PokemonDetailComponent]
+  exports: [PokemonListComponent, ColorPipe, PokemonDetailComponent]
 })
 export class PokemonsModule {
 }

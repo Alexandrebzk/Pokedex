@@ -3,8 +3,7 @@ import {AuthService} from '../login/auth.service';
 import {TeamService} from './team.service';
 import {PokemonModel} from '../models/pokemon.model';
 import {Observable} from 'rxjs';
-import {environment} from "../../environments/environment";
-import {Router} from "@angular/router";
+import {PokemonsService} from '../pokemons/pokemons.service';
 
 @Component({
   selector: 'app-team',
@@ -18,22 +17,19 @@ export class TeamComponent implements OnInit {
   team!: Observable<PokemonModel[]>;
   pokemonsToDelete: PokemonModel[] = [];
 
-  constructor(private authService: AuthService, private teamService: TeamService, private router: Router) {
+  constructor(private authService: AuthService, private teamService: TeamService, private pokemonService: PokemonsService) {
   }
 
   ngOnInit(): void {
-    this.teamService.getTrainerTeam().subscribe((ids) => {
-      this.team = this.teamService.getTeamDetails();
-    });
+    this.teamService.getTrainerTeam().subscribe((ids) => this.team = this.pokemonService.getPokemonsDetails(ids));
   }
 
-  submitDelete(vueTeam: any[]): void {
-    vueTeam = this.teamService.team.filter((pok) => this.pokemonsToDelete.find(p => p.id === pok) === undefined);
-    this.teamService.team = vueTeam;
-    this.teamService.setTrainerTeam().subscribe();
+  submitDelete(vueTeam: PokemonModel[]): void {
+    vueTeam = vueTeam.filter((pok) => this.pokemonsToDelete.find(p => p.id === pok.id) === undefined);
+    this.teamService.setTrainerTeam(vueTeam.map((line) => line.id)).subscribe();
     this.pokemonsToDelete = [];
     this.drawer.toggle();
-    this.team = this.teamService.getTeamDetails();
+    this.team = this.pokemonService.getPokemonsDetails(vueTeam.map((line) => line.id));
   }
 
   placeToDelete(pok: any): void {
@@ -49,9 +45,5 @@ export class TeamComponent implements OnInit {
     if (this.pokemonsToDelete.length === 0) {
       this.drawer.toggle();
     }
-  }
-
-  isTeamEmpty(): boolean {
-    return this.teamService.team.length > 0;
   }
 }

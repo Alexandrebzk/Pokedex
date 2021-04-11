@@ -7,27 +7,29 @@ import {MatListModule} from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {PokemonsModule} from '../pokemons/pokemons.module';
 import {MatIconModule} from '@angular/material/icon';
-import {RouterModule} from "@angular/router";
-import {MatButtonModule} from "@angular/material/button";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import {MatSidenavModule} from "@angular/material/sidenav";
+import {RouterModule} from '@angular/router';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 
 @NgModule({
   declarations: [TeamComponent],
   imports: [
-    CommonModule,
-    MatCardModule,
-    MatGridListModule,
-    MatListModule,
-    MatChipsModule,
-    PokemonsModule,
-    MatIconModule,
+    // Core modules
     RouterModule,
+    CommonModule,
+    // Application modules
     MatButtonModule,
+    MatCardModule,
+    MatChipsModule,
+    MatGridListModule,
+    MatIconModule,
+    MatListModule,
+    MatSidenavModule,
     MatTooltipModule,
-    MatSidenavModule
+    PokemonsModule,
   ]
 })
 export class TeamModule { }

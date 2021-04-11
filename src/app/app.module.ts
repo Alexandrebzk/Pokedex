@@ -8,20 +8,22 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {LoginModule} from './login/login.module';
 import {TeamModule} from './team/team.module';
-import {AuthInterceptor} from "./auth/auth.interceptor";
+import {AuthInterceptor} from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    BrowserModule,
+    // Core modules
     AppRoutingModule,
-    PokemonsModule,
-    LoginModule,
     BrowserAnimationsModule,
+    BrowserModule,
     HttpClientModule,
-    TeamModule
+    // Application modules
+    LoginModule,
+    TeamModule,
+    PokemonsModule,
   ],
   providers: [
     {

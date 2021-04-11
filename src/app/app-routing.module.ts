@@ -11,8 +11,14 @@ const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'pokedex'},
   {path: 'pokedex', pathMatch: 'full', component: PokedexComponent},
   {path: 'login', pathMatch: 'full', component: LoginComponent},
-  {path: 'team', pathMatch: 'full', component: TeamComponent, canActivate: [AuthenticationGuard]},
-  {path: 'pokemons', pathMatch: 'full', component: PokemonListComponent},
+  {
+    path: 'team', pathMatch: 'full', component: TeamComponent, canActivate: [AuthenticationGuard],
+    loadChildren: () => import('./team/team.module').then(m => m.TeamModule)
+  },
+  {
+    path: 'pokemons', pathMatch: 'full', component: PokemonListComponent,
+    loadChildren: () => import('./pokemons/pokemons.module').then(m => m.PokemonsModule)
+  },
   {path: 'pokemons/detail/:id', pathMatch: 'full', component: PokemonDetailComponent}
 ];
 
