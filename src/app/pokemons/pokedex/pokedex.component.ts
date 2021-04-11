@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Pokemon} from '../../models/Pokemon';
+import {PokemonModel} from '../../models/pokemon.model';
 import {PokemonDetailComponent} from '../pokemon-detail/pokemon-detail.component';
 import {AuthService} from '../../login/auth.service';
 import {TeamService} from '../../team/team.service';
 import {environment} from '../../../environments/environment';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-pokedex',
@@ -50,10 +50,10 @@ export class PokedexComponent implements OnInit, AfterViewInit {
     this.authService.logout();
   }
 
-  addPokToTeam($event: Pokemon): void {
+  addPokToTeam($event: PokemonModel): void {
     if (this.teamService.team.length < environment.maxNumberOfPokemons) {
       this.teamService.team.push($event.id);
-      this.teamService.setTrainerTeam(this.authService.accessToken).subscribe(() => this.openSnackBar('Pokémon ' + $event.name + ' ajouté', 'Ok'));
+      this.teamService.setTrainerTeam().subscribe(() => this.openSnackBar('Pokémon ' + $event.name + ' ajouté', 'Ok'));
     } else {
       this.openSnackBar('Votre équipe est pleine !', 'Ok');
     }
@@ -67,12 +67,12 @@ export class PokedexComponent implements OnInit, AfterViewInit {
 
   randomTeam(): void {
     this.teamService.team = [];
-    this.teamService.setTrainerTeam(this.authService.accessToken).subscribe(() => {
+    this.teamService.setTrainerTeam().subscribe(() => {
       const length = this.teamService.team.length;
       for (let i = 0; i < environment.maxNumberOfPokemons - length; i++) {
         this.teamService.team.push(Math.floor(Math.random() * 150) + 1);
       }
-      this.teamService.setTrainerTeam(this.authService.accessToken).subscribe(() => this.router.navigate(['team']));
+      this.teamService.setTrainerTeam().subscribe(() => this.router.navigate(['team']));
     });
   }
 }

@@ -14,7 +14,7 @@
     <h3 matLine>
       {{pokemon.id | number:'3.0-0'}}.
       <span> {{pokemon.name}} </span>
-      <button *ngIf="pokemonsOption" mat-mini-fab color="warn" aria-label="Remove Pokemon"
+      <button *ngIf="pokemonsOption" mat-mini-fab color="warn" aria-label="Remove PokemonModel"
               (click)="removePokemon(pokemon)">
         <mat-icon>remove</mat-icon>
       </button>

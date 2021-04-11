@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {ResponseAuth} from '../models/ResponseAuth';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {TeamService} from '../team/team.service';
@@ -12,38 +11,49 @@ import {TeamService} from '../team/team.service';
 export class AuthService {
   private apiURI = environment.pokedexApiUrl + '/auth';
   // tslint:disable-next-line:variable-name
-  private _authenticationResponse?: ResponseAuth;
+  private _token?: string;
+  // tslint:disable-next-line:variable-name
+  private _refreshToken?: string;
+  // tslint:disable-next-line:variable-name
+  private _expiresIn?: number;
 
   constructor(private http: HttpClient, private teamService: TeamService) {
   }
 
-  get authenticationResponse(): ResponseAuth | undefined {
-    return this._authenticationResponse;
+  get token(): string | undefined {
+    return this._token;
   }
 
-  get accessToken(): string | undefined {
-    return this._authenticationResponse?.access_token;
+  get expiresIn(): number | undefined {
+    return this._expiresIn;
   }
 
-  login(email: string, password: string): Observable<ResponseAuth> {
-    return this.http.post<ResponseAuth>(this.apiURI + '/login', {email, password}).pipe(tap((res) => {
-      this._authenticationResponse = res;
-      this.teamService.getTrainerTeam(this.accessToken).subscribe(data => {
+  login(email: string, password: string): Observable<any> {
+    return this.http.post<any>(this.apiURI + '/login', {email, password}).pipe(tap((res) => {
+      this._token = res.access_token;
+      this._refreshToken = res.refresh_token;
+      this._expiresIn = Number(res.expires_in);
+      this.teamService.getTrainerTeam().subscribe(data => {
         this.teamService.team = data;
       });
     }));
   }
 
-  // tslint:disable-next-line:variable-name
-  refreshToken(refresh_token: string): Observable<ResponseAuth> {
-    return this.http.post<ResponseAuth>(this.apiURI + '/refresh', {refresh_token});
+  refreshCurrentToken(): Observable<any> {
+    return this.http.post<any>(this.apiURI + '/refresh', {refresh_token: this._refreshToken}).pipe(tap((res) => {
+      this._token = res.access_token;
+      this._refreshToken = res.refresh_token;
+      this._expiresIn = Number(res.expires_in);
+    }));
   }
 
   isLoggedIn(): boolean {
-    return this.authenticationResponse?.access_token !== undefined && this.authenticationResponse.access_token.length > 0;
+    return this._token !== undefined && this._token?.length > 0;
   }
 
   logout(): void {
-    this._authenticationResponse = undefined;
+    this._token = undefined;
+    this._refreshToken = undefined;
+    this._expiresIn = undefined;
   }
 }

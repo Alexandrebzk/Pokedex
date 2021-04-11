@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {PokemonsService} from '../pokemons.service';
-import {Pokemon} from '../../models/Pokemon';
+import {PokemonModel} from '../../models/pokemon.model';
 import {Observable} from 'rxjs';
 import {AuthService} from '../../login/auth.service';
 
@@ -11,15 +11,15 @@ import {AuthService} from '../../login/auth.service';
   styleUrls: ['./pokemon-detail.component.scss']
 })
 export class PokemonDetailComponent implements OnInit, OnChanges {
-  pokemon$?: Observable<Pokemon>;
+  pokemon$?: Observable<PokemonModel>;
   @Input() selectedPokemonId?: number;
   @Input() cols!: number;
   @Input() rowHeight!: string;
   @Input() isRemovable = false;
   @Input() isAddable = false;
   @Input() showDescription = false;
-  @Output() onDelete: EventEmitter<Pokemon> = new EventEmitter<Pokemon>();
-  @Output() onAdd: EventEmitter<Pokemon> = new EventEmitter<Pokemon>();
+  @Output() onDelete: EventEmitter<PokemonModel> = new EventEmitter<PokemonModel>();
+  @Output() onAdd: EventEmitter<PokemonModel> = new EventEmitter<PokemonModel>();
 
 
   constructor(private route: ActivatedRoute, private pokemonsService: PokemonsService, private authService: AuthService) {
@@ -28,22 +28,22 @@ export class PokemonDetailComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     const idPokemon = this.route.snapshot.paramMap.get('id');
     if (idPokemon !== null) {
-      this.pokemon$ = this.pokemonsService.getSpecialPokemon(idPokemon);
+      this.pokemon$ = this.pokemonsService.getPokemonById(idPokemon);
     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedPokemonId.previousValue !== changes.selectedPokemonId.currentValue
       && changes.selectedPokemonId.currentValue !== undefined) {
-      this.pokemon$ = this.pokemonsService.getSpecialPokemon(changes.selectedPokemonId.currentValue);
+      this.pokemon$ = this.pokemonsService.getPokemonById(changes.selectedPokemonId.currentValue);
     }
   }
 
-  emitDelete(pok: Pokemon): void {
+  emitDelete(pok: PokemonModel): void {
     this.onDelete.emit(pok);
   }
 
-  emitAdd(pok: Pokemon): void {
+  emitAdd(pok: PokemonModel): void {
     this.onAdd.emit(pok);
   }
 

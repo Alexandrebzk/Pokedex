@@ -10,7 +10,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {PokemonsService} from '../pokemons.service';
-import {Pokemon} from '../../models/Pokemon';
+import {PokemonModel} from '../../models/pokemon.model';
 import {fromEvent} from 'rxjs';
 import {debounceTime, map} from 'rxjs/operators';
 
@@ -21,13 +21,13 @@ import {debounceTime, map} from 'rxjs/operators';
 })
 export class PokemonListComponent implements AfterViewInit, OnChanges {
 
-  pokemons: Pokemon[] = [];
+  pokemons: PokemonModel[] = [];
   limit = 20;
 
   @Input() searchOption?: boolean;
-  @Output() pokemonsOptionChange = new EventEmitter<Pokemon[]>();
-  @Input() pokemonsOption ?: Pokemon[];
-  @Output() selectedPokemon: EventEmitter<Pokemon> = new EventEmitter();
+  @Output() pokemonsOptionChange = new EventEmitter<PokemonModel[]>();
+  @Input() pokemonsOption ?: PokemonModel[];
+  @Output() selectedPokemon: EventEmitter<PokemonModel> = new EventEmitter();
   @ViewChild('search') private searchBox!: ElementRef;
   searchKey!: string;
 
@@ -47,7 +47,7 @@ export class PokemonListComponent implements AfterViewInit, OnChanges {
     }
     if (this.searchOption !== undefined) {
       this.pokemonsService.getPokemons({offset: this.pokemons.length, limit: this.limit}).pipe(map((v) => {
-        return v.data as Pokemon[];
+        return v.data as PokemonModel[];
       }));
       fromEvent(this.searchBox.nativeElement, 'keyup').pipe(
         map((i: any) => i.currentTarget.value),
@@ -82,14 +82,14 @@ export class PokemonListComponent implements AfterViewInit, OnChanges {
     });
   }
 
-  selectPokemon(pokemon: Pokemon): void {
+  selectPokemon(pokemon: PokemonModel): void {
     this.selectedPokemon.emit(pokemon);
   }
 
   searchFor($event: any): void {
   }
 
-  removePokemon(pok: Pokemon): void {
+  removePokemon(pok: PokemonModel): void {
     this.pokemons = this.pokemons.filter((poke) => poke.id !== pok.id);
     this.pokemonsOptionChange.emit(this.pokemons);
   }

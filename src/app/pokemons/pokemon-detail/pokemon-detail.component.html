@@ -50,10 +50,10 @@
         {{pok.description}}
       </div>
     </mat-grid-tile>
-    <button *ngIf="isRemovable" mat-mini-fab color="warn" aria-label="Remove Pokemon" (click)="emitDelete(pok)">
+    <button *ngIf="isRemovable" mat-mini-fab color="warn" aria-label="Remove PokemonModel" (click)="emitDelete(pok)">
       <mat-icon>remove</mat-icon>
     </button>
-    <button *ngIf="isAddable && isLoggedIn()" mat-mini-fab color="accent" aria-label="Remove Pokemon" (click)="emitAdd(pok)">
+    <button *ngIf="isAddable && isLoggedIn()" mat-mini-fab color="accent" aria-label="Remove PokemonModel" (click)="emitAdd(pok)">
       <mat-icon>add</mat-icon>
     </button>
   </mat-grid-list>
